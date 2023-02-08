@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Fire Warning</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        .Header {
+            display: block;
+            width: 100%;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .column {
+            text-align;
+            float: left;
+            width: 50%;
+            padding: 10px;
+            border: 1px solid black;
+        }
+        .row {
+            text-align: center;
+
+        }
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .btn {
+            border: none;
+            outline: none;
+            padding: 12px 16px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ddd;
+        }
+        
+        .btn.active {
+          background-color: #666;
+          color: white;
+        }
+        .warning {
+            width: 100%;
+        
+        }
+        .Text_warning {
+            display: block;
+            width: 100%;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+        }
+        </style>
+</head>
+<body>
+    <div class="Header">
+        <h1>MY HOME</h1>
+    </div>
+
+    <p>Click on a button to choose list view or grid view.</p>
+
+    <div id="btnContainer">
+        <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
+        <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+    </div>
+    <br>
+    
+      <div class="row">
+        <div class="column" style="background-color:#DDDDDD;">
+            <div class="temperature">
+                <h2>Temperature</h2>
+                <p class="rs"></p>
+            </div>
+        </div>
+        <div class="column" style="background-color:#DDDDDD;">
+            <div class="humidity">
+                <h2>Humidity</h2>
+                <p><span class="rs"></p>
+            </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="column" style="background-color:#DDDDDD;">
+            <div class="gas">
+                <h2>GAS</h2>
+                <p><span class="rs"></p>
+            </div>
+        </div>
+        <div class="column" style="background-color:#DDDDDD;">
+            <div class="flame_status">
+                <h2>FLAME_STATUS</h2>
+                <p><span class="rs"></p>
+            </div>
+        </div>
+      </div>
+    <br>
+    <div class="warning" style="text-align:center">
+        <div class="Text_warning">
+            <h2><span>WARNING STATUS</span></h2>
+        </div>
+    </div>
+
+
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js'
+  
+      // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
+      import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js'
+  
+      // Add Firebase products that you want to use
+      import { getAuth } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js'
+      import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js'
+
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyAq23A7tuFW4V_PyRgfnV-qURcjEnNTZh8",
+        authDomain: "fire-warning-9e33c.firebaseapp.com",
+        databaseURL: "https://fire-warning-9e33c-default-rtdb.firebaseio.com",
+        projectId: "fire-warning-9e33c",
+        storageBucket: "fire-warning-9e33c.appspot.com",
+        messagingSenderId: "499336309883",
+        appId: "1:499336309883:web:2b4edb1a5fa83b45b806de",
+        measurementId: "G-XY92SCLM5P"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import { getDatabase, ref, onValue} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+        const db = getDatabase();
+
+        ////
+        onValue(ref(db, '/Temperature'), (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            document.querySelector('.temperature .rs').innerText =data;
+        });
+
+        ////
+        onValue(ref(db, '/Humidity'), (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            document.querySelector('.humidity .rs').innerText =data;
+        });
+        ////
+        onValue(ref(db, '/GAS'), (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            document.querySelector('.gas .rs').innerText =data;
+        });
+        ////
+        onValue(ref(db, '/FLAME_STATUS'), (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            document.querySelector('.flame_status .rs').innerText =data;
+        });
+        ////
+        onValue(ref(db, '/WARNING'), (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            
+            switch(data){
+                case 0:
+                document.querySelector('.Text_warning').style.backgroundColor = '#DDDDDD';
+                break;
+                case 1:
+                document.querySelector('.Text_warning').style.backgroundColor = '#99FF99';
+                break;
+                case 2:
+                document.querySelector('.Text_warning').style.backgroundColor = '#FFCC99';
+                break;
+                case 3:
+                document.querySelector('.Text_warning').style.backgroundColor = '#FF3333';
+                break;
+            }
+
+            document.querySelector('.warning .rs').innerText = data;
+        });
+
+        
+    var elements = document.getElementsByClassName("column");
+    var i;
+    function listView() {
+    for (i = 0; i < elements.length; i++) {
+        elements[i].style.width = "100%";
+        }
+    }
+    function gridView() {
+    for (i = 0; i < elements.length; i++) {
+        elements[i].style.width = "50%";
+        }
+    }
+
+    var container = document.getElementById("btnContainer");
+    var btns = container.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    </script>
+  </body>
+</html>
