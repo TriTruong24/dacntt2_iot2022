@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <title>Fire Warning</title>
     <style>
         * {
@@ -23,12 +24,12 @@
             text-align;
             float: left;
             width: 50%;
-            padding: 10px;
-            border: 1px solid black;
+            margin: 10px;
+            border-radius: 50px;
         }
         .row {
             text-align: center;
-
+            display: flex;
         }
         
         .row:after {
@@ -65,6 +66,7 @@
             font-size: 16px;
             cursor: pointer;
             text-align: center;
+            border-radius: 50px
         }
         </style>
 </head>
@@ -82,13 +84,13 @@
     <br>
     
       <div class="row">
-        <div class="column" style="background-color:#DDDDDD;">
+        <div class="column" style="background-color:#FFFFCC;">
             <div class="temperature">
                 <h2>Temperature</h2>
                 <p class="rs"></p>
             </div>
         </div>
-        <div class="column" style="background-color:#DDDDDD;">
+        <div class="column" style="background-color:#FFCCCC;">
             <div class="humidity">
                 <h2>Humidity</h2>
                 <p><span class="rs"></p>
@@ -97,13 +99,13 @@
       </div>
       
       <div class="row">
-        <div class="column" style="background-color:#DDDDDD;">
+        <div class="column" style="background-color:#CCFFCC;">
             <div class="gas">
                 <h2>GAS</h2>
                 <p><span class="rs"></p>
             </div>
         </div>
-        <div class="column" style="background-color:#DDDDDD;">
+        <div class="column" style="background-color:#00FFFF;">
             <div class="flame_status">
                 <h2>FLAME_STATUS</h2>
                 <p><span class="rs"></p>
@@ -111,7 +113,7 @@
         </div>
       </div>
     <br>
-    <div class="warning" style="text-align:center">
+    <div class="warning">
         <div class="Text_warning">
             <h2><span>WARNING STATUS</span></h2>
         </div>
