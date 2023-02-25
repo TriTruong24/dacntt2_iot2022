@@ -21,7 +21,7 @@
             text-align: center;
         }
         .column {
-            text-align;
+            text-align:center;
             float: left;
             width: 50%;
             margin: 10px;
@@ -114,19 +114,10 @@
 
     <script type="module">
       import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js'
-  
-      // If you enabled Analytics in your project, add the Firebase SDK for Google Analytics
       import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js'
-  
-      // Add Firebase products that you want to use
       import { getAuth } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js'
       import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js'
 
-
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
         apiKey: "AIzaSyAq23A7tuFW4V_PyRgfnV-qURcjEnNTZh8",
         authDomain: "fire-warning-9e33c.firebaseapp.com",
@@ -141,11 +132,9 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
-
         import { getDatabase, ref, onValue} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
         const db = getDatabase();
-
         ////
         onValue(ref(db, '/Temperature'), (snapshot) => {
             const data = snapshot.val();
